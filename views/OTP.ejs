@@ -1,134 +1,116 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Send OTP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-  }
-  .container{
-    height: 100vh;
-    width: 100%;
-    background-color: #356182;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .form{
-    background: #FFF;
-    max-width: 400px;
-    width: 100%;
-    border-radius: 10px;
-    padding: 30px;
-    height: 400px;
-  }
-  header{
-    font-size: 28px;
-    font-weight: 600;
-    color: #232836;
-    text-align: center;
-  }
-  form{
-    margin-top: 30px;
-  }
-  .form .field{
-    position: relative;
-    height: 50px;
-    width: 100%;
-    margin-top: 20px;
-    border-radius: 6px;
-  }
-  .field input,
-  .field button{
-    height: 100%;
-    width: 100%;
-    border: none;
-    font-size: 16px;
-    font-weight: 400;
-    border-radius: 6px;
-    
-    
-  }
-  .field input{
-    outline: none;
-    padding: 0 15px;
-    border: 1px white;
-    background-color: #F4F4F2;
-  }
-  .field input:focus{
-    border-bottom-width: 2px;
-  }
-  
-  
-  .form-link{
-    text-align: center;
-    margin-top: 30px;
-    
-  }
-  .form-link a{
-    font-size: 14px;
-    font-weight: 400;
-    color:#232836;
-  }
-  .form a{
-    color: #0171d3;
-    text-decoration: none;
-  }
-  .form a:hover{
-    text-decoration: underline;
-  }
-
-  .otp{
-    width: 60px;
-    margin-top: 110px;
-
-  }
-
-  label{
-    margin-top: 20px;
-  }
-  
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 400px;
+            width: 90%;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .field {
+            position: relative;
+            width: 100%;
+            margin-top: 20px;
+        }
+        label {
+            font-size: 14px;
+            color: #777;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        input {
+            height: 40px;
+            width: 100%;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 10px 15px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        input:focus {
+            border-color: #007bff;
+        }
+        .otp {
+            margin-top: 30px;
+            width: 100%;
+            height: 40px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .otp:hover {
+            background-color: #0056b3;
+        }
+        .form-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .form-link a {
+            font-size: 14px;
+            font-weight: 400;
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .form-link a:hover {
+            color: #007bff;
+        }
     </style>
 </head>
-
-
 <body>
-  <%- include('Navbar.ejs')%>
-    <div class="container forms">
-        <div class="form login">
-            <div class="form-content">
-                <header>Send OTP</header>
-                <form action="/otp" method="post">
-               
-                    <div class="field input-field">
-                        <label >Enter Your OTP</label>
-                        <input type="text" name="otp" placeholder="OTP" class="OTP" />
-                        <label>Enter Your Password</label>
-                        <input type="password" name="password" placeholder="Password" class="password" />
-
-                    </div>
-
-                    <div >
-                      <button  class="otp" >Send</button>
-
-                  </div>
-                </form>
-
-
-                    
-
-                    
-                  
+    <div class="container">
+        <form action="/otp" method="post">
+            <h1>Send OTP</h1>
+            <div class="field input-field">
+                <label for="otp">Enter Your OTP</label>
+                <input type="text" id="otp" name="otp" placeholder="OTP" required />
+                <label for="password">Enter Your Password</label>
+                <input type="password" id="password" name="password" placeholder="Password" required />
             </div>
-        </div>
+            <button type="submit" class="otp">Send</button>
+            <div class="form-link">
+                <a href="/login">Back to Login</a>
+            </div>
+        </form>
     </div>
-  
 </body>
 </html>

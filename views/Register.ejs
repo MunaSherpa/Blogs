@@ -15,7 +15,7 @@
   .container{
     height: 100vh;
     width: 100%;
-    background-color: #356182;
+    background-color: #f0f2f5;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,6 +27,7 @@
     border-radius: 10px;
     padding: 30px;
     height: 500px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
   header{
     font-size: 28px;
@@ -58,7 +59,7 @@
   .field input{
     outline: none;
     padding: 0 15px;
-    border: 1px white;
+    border:  1px solid #e1e5eb;
     background-color: #F4F4F2;
   }
   .field input:focus{
@@ -103,16 +104,16 @@
                 <form action="/register" method="post">
                 <header>Register</header>
                     <div class="field input-field">
-                        <input type="email" name="email" placeholder="Email" class="Email" />
+                        <input type="email" name="email" placeholder="Email" class="Email" required />
                     </div>
 
                     <div class="field input-field">
-                        <input type="User"  name="user" placeholder="  Name" class="User"/>
+                        <input type="User"  name="user" placeholder="  Name" class="User" required/>
                         
                     </div>
 
                     <div class="field input-field">
-                        <input type="Password" name="password" placeholder="  Password" class="Password"/>
+                        <input type="Password" name="password" placeholder="  Password" class="Password"required/>
                        
                     </div>
 

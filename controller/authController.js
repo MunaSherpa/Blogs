@@ -3,18 +3,28 @@ const bcrypt = require('bcrypt');
 const sendEmail = require("../services/sendEmail");
 
 exports.registerUser = async(req, res)=>{
-   
-    // const email = req.body.email
-    // const password = req.body.password
 
     const {email, user,  password} = req.body
-    await users.create({ 
-        name: user,
-        email: email,
-        password: bcrypt.hashSync(password,10)
-})
-    console.log(email, user, password);
-    res.redirect('/login')
+    
+    const existingUser = await users.findAll({
+        where:{
+            email: email
+           }
+    });
+console.log(existingUser)
+    if (existingUser.length !== 0){
+        res.render('error.ejs')
+    }else{
+        await users.create({ 
+            name: user,
+            email: email,
+            password: bcrypt.hashSync(password,10)
+    })
+        console.log(email, user, password);
+        res.redirect('/login')
+    }
+    
+    
  
 
 
@@ -25,9 +35,12 @@ exports.registerUser = async(req, res)=>{
 
 
 exports.loginUser = async(req, res) =>{
+    const jwt = require('jsonwebtoken')
+   
+    
    
     const {email, password}= req.body
-    const userExist = await users.findAll({ // findall check the data in database
+    const userExist = await users.findAll({ // findall check the data matching provide mail in database
        where:{
         email: email
        }
@@ -41,7 +54,10 @@ exports.loginUser = async(req, res) =>{
         // console.log(password)
         const isPasswordCorrect =  bcrypt.compareSync(password,userExist[0].password)
         if(isPasswordCorrect){
-            res.redirect('/home')
+    const token =  jwt.sign({id:userExist[0].id},"hello")
+    res.cookie("token",token)
+    console.log(token)
+            res.redirect('/home') 
 
         }else{
             res.redirect('/login')
@@ -55,7 +71,7 @@ exports.loginUser = async(req, res) =>{
 exports.forgotPassword = async(req, res)=>{
     console.log(req.body)
     const {email} = req.body
-    const otp = Math.floor(Math.random() * 9000) + 1000;
+    const otp = Math.floor(Math.random() * 9000) + 1000; // generates a random 4 digit OTP
 
      const userExist = await users.findAll( {
         where:{
