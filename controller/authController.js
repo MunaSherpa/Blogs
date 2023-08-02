@@ -1,4 +1,4 @@
-const { users } = require("../model");
+const { users, blogs } = require("../model");
 const bcrypt = require('bcrypt');
 const sendEmail = require("../services/sendEmail");
 
@@ -23,15 +23,8 @@ console.log(existingUser)
         console.log(email, user, password);
         res.redirect('/login')
     }
-    
-    
- 
-
 
 }
-
-
-
 
 
 exports.loginUser = async(req, res) =>{
@@ -54,7 +47,7 @@ exports.loginUser = async(req, res) =>{
         // console.log(password)
         const isPasswordCorrect =  bcrypt.compareSync(password,userExist[0].password)
         if(isPasswordCorrect){
-    const token =  jwt.sign({id:userExist[0].id},"hello")
+    const token =  jwt.sign({id:userExist[0].id},"hello") //hello is jwt secret key and {id:userExist[0].id} is jwt payload
     res.cookie("token",token)
     console.log(token)
             res.redirect('/home') 
@@ -94,15 +87,6 @@ exports.forgotPassword = async(req, res)=>{
         res.render('otp')
      }
 
-
-    
-        
-
-       
-
-    
-
-
 }
 
 exports.otp = async(req, res) =>{
@@ -124,3 +108,18 @@ exports.otp = async(req, res) =>{
                 res.redirect('/login')
             }
 }
+
+
+
+exports.blogForm = async(req, res) =>{ // create blog form ko garako
+
+    const { title, description, image} = req.body
+    console.log(req.body)
+    await blogs.create({  // index ko blogs ko name blogs.create dako
+     title: title,
+     description: description,
+     image:null,
+    })
+    console.log(title, description, image)
+    res.redirect('home')
+ }

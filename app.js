@@ -5,7 +5,7 @@ const ejs = require('ejs')
 const {sequelized, blog} = require ('./model/index')
 
 const bcrypt = require ('bcrypt');
-const { registerUser, loginUser, forgotPassword, otp} = require('./controller/authController');
+const { registerUser, loginUser, forgotPassword, otp, blogForm} = require('./controller/authController');
 
 
 
@@ -50,12 +50,15 @@ app.get('/otp', (req,res) => {
 
 app.post('/otp', otp)
 
+app.get('/blog', (req,res) => {
+    res.render('blog') 
+})
+
+app.post('/blog', blogForm)
+
 app.get('/home', (req,res) => {
     res.render('home') 
 })
-
-
-
 
 
 
