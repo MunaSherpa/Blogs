@@ -8,7 +8,8 @@ const bcrypt = require ('bcrypt');
 const { registerUser, loginUser, forgotPassword, otp, blogForm} = require('./controller/authController');
 
 
-
+const { multer, storage } = require("./services/multerConfig");
+const upload = multer({ storage: storage });
 
 
 app.use(express.json())
@@ -54,7 +55,7 @@ app.get('/blog', (req,res) => {
     res.render('blog') 
 })
 
-app.post('/blog', blogForm)
+app.post('/blog', upload.single("image"), blogForm) //upload.single('image') is middleware
 
 app.get('/home', (req,res) => {
     res.render('home') 
