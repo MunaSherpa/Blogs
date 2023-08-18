@@ -2,18 +2,22 @@ const express = require('express')
 const app = express();
 const ejs = require('ejs')
 
-const {sequelized, blog} = require ('./model/index')
+const {sequelized, blog, blogs} = require ('./model/index')
 
 const bcrypt = require ('bcrypt');
-const { registerUser, loginUser, forgotPassword, otp, blogForm} = require('./controller/authController');
+const { registerUser, loginUser, forgotPassword, otp, blogForm, homeBlogs, getBlogByID} = require('./controller/authController');
 
 
 const { multer, storage } = require("./services/multerConfig");
+const { isAuthenticated } = require('./services/isAuthenticated');
 const upload = multer({ storage: storage });
 
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true})) 
+
+app.use(express.static("uploads")); // databasema null ako thauma link datakacha
+app.use(require('cookie-parser')()) ;
 
 app.set('view engine', 'ejs')
 
@@ -55,12 +59,26 @@ app.get('/blog', (req,res) => {
     res.render('blog') 
 })
 
-app.post('/blog', upload.single("image"), blogForm) //upload.single('image') is middleware
+app.post('/blog', isAuthenticated, upload.single("image"), blogForm) 
+// app.post('/blog',  upload.single("image"), blogForm) //upload.single('image') is middleware
 
-app.get('/home', (req,res) => {
-    res.render('home') 
+
+
+// app.get('/home',(req,res) => {
+    
+//     res.render('home') 
+// })
+
+
+app.get('/home', async (req,res) => {
+    const blogss = await blogs.findAll()
+    res.render('home',{blogss}) 
 })
 
+
+app.get('/home', homeBlogs)
+ 
+app.get('/blog/:id', getBlogByID)
 
 
 app.listen(3000, () => {

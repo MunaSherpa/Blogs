@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog Posting UI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      
+    }
+    
+    body {
+      padding: 15px;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+    
+    /* main body */
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    
+    .division {
+      width: 23%; /* Adjust this value to control the width of each box (leaving some space for margins) */
+      padding: 20px;
+      border: 1px solid #ccc9c9;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .division:hover {
+      transform: translateY(-5px);
+    }
+
+    .division img {
+      height: 175px;
+      width: 175px;
+      margin-bottom: 10px;
+      max-width: 900px;
+    }
+    
+    h1 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #222020;
+    }
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #222020;
+    }
+    
+    p {
+      font-size: 17px;
+      line-height: 1.5;
+      color: #222020;
+      text-align: center;
+    }
+    
+    .nav {   
+        background-color: #171717;
+        height:80px;
+      }
+    .add {
+      color: rgb(150, 146, 146);
+      text-decoration: none;
+      background-color: black;
+      border-radius: 5px;
+      margin-left: 580px;
+      padding: 10px 20px;
+    }
+    
+  </style>
+</head>
+<body>
+      <%- include('Navbar.ejs')%>
+      <h1>
+        <a class ="add" href="blog">Add More</a>
+      </h1>
+          
+    
+       
+    <div class="container">
+      <% blogss.forEach((titl) => { %>
+        <div class="division">
+          <h1> <%- titl.id %></h3>
+          <img src="<%- titl.image %>" alt="BlogApp">
+          <h3><%- titl.title %></h3>
+          <p><%- titl.description %></p>
+        </div>
+      <% }) %>
+      
+    </div>
+    <%- include('footer.ejs')%> 
+</body>
+</html>

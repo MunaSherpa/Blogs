@@ -114,12 +114,37 @@ exports.otp = async(req, res) =>{
 exports.blogForm = async(req, res) =>{ // create blog form ko garako
 
     const { title, description, image} = req.body
-    console.log(req.body)
+    console.log(req.id)
+    console.log(req.file)
     await blogs.create({  // index ko blogs ko name blogs.create dako
      title: title,
      description: description,
-     image:null,
+     image:"http://localhost:3000/"+req.file.filename, //database ma link dakaucha ani tho link copy garo vana browser ma dakaucha
+     userId: req.userId
     })
     console.log(title, description, image)
-    res.redirect('home')
+    res.redirect('/home')
  }
+
+
+
+ exports.homeBlogs = async(req, res) =>{ // many blogs dakauna
+    const blogss = await blogs.findAll()
+    console.log(blogss)
+ 
+    res.render('home',{blogss}) // file ko name dako
+ }
+
+ 
+
+ exports.getBlogByID = async(req, res) =>{ // single blog dakaucha
+ 
+
+   const blogId = await blogs.findAll({
+       where:{
+           id:req.params.id
+       }
+   });
+   res.render('blogs', {blogId});
+   
+}
