@@ -2,10 +2,10 @@ const express = require('express')
 const app = express();
 const ejs = require('ejs')
 
-const {sequelized, blog, blogs} = require ('./model/index')
+const {sequelized, blog, blogs, users} = require ('./model/index')
 
 const bcrypt = require ('bcrypt');
-const { registerUser, loginUser, forgotPassword, otp, blogForm, homeBlogs, getBlogByID} = require('./controller/authController');
+const { registerUser, loginUser, forgotPassword, otp, blogForm, homeBlogs, getBlogByID,  deleteBlog} = require('./controller/authController');
 
 
 const { multer, storage } = require("./services/multerConfig");
@@ -59,26 +59,16 @@ app.get('/blog', (req,res) => {
     res.render('blog') 
 })
 
-app.post('/blog', isAuthenticated, upload.single("image"), blogForm) 
-// app.post('/blog',  upload.single("image"), blogForm) //upload.single('image') is middleware
+app.post('/blog', isAuthenticated, upload.single("image"), blogForm) //upload.single('image') is middleware
 
-
-
-// app.get('/home',(req,res) => {
-    
-//     res.render('home') 
-// })
-
-
-app.get('/home', async (req,res) => {
-    const blogss = await blogs.findAll()
-    res.render('home',{blogss}) 
-})
-
-
-app.get('/home', homeBlogs)
+app.get('/home', homeBlogs) // homepage many blog
  
-app.get('/blog/:id', getBlogByID)
+app.get('/singleBlog/:id', getBlogByID) // single blog
+
+app.get('/delete/:id', deleteBlog)
+
+
+
 
 
 app.listen(3000, () => {

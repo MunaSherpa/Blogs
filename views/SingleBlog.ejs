@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single Blog</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .blog-card {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 400px;
+      text-align: center;
+    }
+
+    .blog-card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .blog-card h2 {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+
+    .blog-card h3 {
+      font-size: 18px;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    .blog-card p {
+      margin-top: 20px;
+      color: #555;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+
+    }
+    .edit{
+        margin-left: 1rem;
+    }
+
+    .btn-container a {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #1189F9;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-container a:hover {
+      background-color: #0e6cb6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="blog-card">
+      <img src="<%- blogId[0].image %>" alt="Blog Image">
+      <h3>Created By: <%- blogId[0].user.name %></h3>
+      <h2><%- blogId[0].title %></h2>
+      <p><%- blogId[0].description %></p>
+      <div class="btn-container">
+        <a class="delete" href="/delete/<%- blogId[0].id %>">Delete</a>
+        <a class="edit" href="/edit/<%- blogId[0].id %>">Edit</a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

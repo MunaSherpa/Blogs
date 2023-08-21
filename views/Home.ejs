@@ -5,26 +5,47 @@
   <style>
     * {
       box-sizing: border-box;
-      
     }
     
     body {
       padding: 15px;
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
+      margin: 0;
     }
     
-    /* main body */
+    /* Navigation bar */
+    .nav {
+      background-color: #171717;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 20px;
+    }
+    
+    .add {
+      color: rgb(150, 146, 146);
+      text-decoration: none;
+      background-color: black;
+      border-radius: 5px;
+      padding: 10px 20px;
+      margin-left: auto;
+    }
+
+    /* Main content */
     .container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       max-width: 1300px;
       margin: 0 auto;
+      margin-top: 30px;
     }
-    
+
     .division {
-      width: 23%; /* Adjust this value to control the width of each box (leaving some space for margins) */
+      width: calc(23% - 20px); /* Adjusted width with margin */
+      min-width: 250px; /* Minimum width for each box */
       padding: 20px;
       border: 1px solid #ccc9c9;
       border-radius: 5px;
@@ -33,10 +54,9 @@
       margin: 10px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
     }
-    
+
     .division:hover {
       transform: translateY(-5px);
     }
@@ -45,61 +65,70 @@
       height: 175px;
       width: 175px;
       margin-bottom: 10px;
-      max-width: 900px;
+      max-width: 100%;
+      border-radius: 5px;
     }
-    
+
     h1 {
       font-size: 20px;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       color: #222020;
     }
+
     h3 {
       font-size: 20px;
-      margin-bottom: 10px;
+      margin: 10px 0;
       color: #222020;
     }
-    
+
     p {
       font-size: 17px;
       line-height: 1.5;
       color: #222020;
       text-align: center;
     }
-    
-    .nav {   
-        background-color: #171717;
-        height:80px;
-      }
-    .add {
-      color: rgb(150, 146, 146);
+
+    .seebtn {
+      margin-top: 20px;
+    }
+
+    .see {
       text-decoration: none;
       background-color: black;
+      color: white;
+      border: none;
       border-radius: 5px;
-      margin-left: 580px;
-      padding: 10px 20px;
+      padding: 8px 16px;
+      transition: background-color 0.3s ease;
     }
-    
+
+    .see:hover {
+      background-color: #333;
+    }
+
+    /* @media screen and (max-width: 768px) {
+      .division {
+        width: calc(50% - 20px); 
+      }
+    } */
   </style>
 </head>
 <body>
-      <%- include('Navbar.ejs')%>
-      <h1>
-        <a class ="add" href="blog">Add More</a>
-      </h1>
-          
-    
-       
-    <div class="container">
-      <% blogss.forEach((titl) => { %>
-        <div class="division">
-          <h1> <%- titl.id %></h3>
-          <img src="<%- titl.image %>" alt="BlogApp">
-          <h3><%- titl.title %></h3>
-          <p><%- titl.description %></p>
-        </div>
-      <% }) %>
-      
-    </div>
-    <%- include('footer.ejs')%> 
+  <div class="nav">
+    <a class="add" href="blog">Add More</a>
+  </div>
+  
+  <div class="container">
+    <% blogss.forEach((titl) => { %>
+      <div class="division">
+        <h3><%- titl.id %></h3>
+        <img src="<%- titl.image %>" alt="BlogApp">
+        <h3>Created By: <%- titl.user.name %></h3> 
+        <h3><%- titl.title %></h3>
+        <p><%- titl.description %></p>
+        <button class="seebtn"><a class="see" href="/SingleBlog/<%- titl.id %>">See More</a></button>
+      </div>
+    <% }) %>
+  </div>
 </body>
 </html>

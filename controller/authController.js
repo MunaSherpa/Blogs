@@ -84,7 +84,7 @@ exports.forgotPassword = async(req, res)=>{
             otp:otp
         })
         
-        res.render('otp')
+        res.render('otp') 
      }
 
 }
@@ -111,7 +111,7 @@ exports.otp = async(req, res) =>{
 
 
 
-exports.blogForm = async(req, res) =>{ // create blog form ko garako
+exports.blogForm = async(req, res) =>{ // create  add blog form ko garako
 
     const { title, description, image} = req.body
     console.log(req.id)
@@ -120,7 +120,7 @@ exports.blogForm = async(req, res) =>{ // create blog form ko garako
      title: title,
      description: description,
      image:"http://localhost:3000/"+req.file.filename, //database ma link dakaucha ani tho link copy garo vana browser ma dakaucha
-     userId: req.userId
+     userId: req.userId // to show the user id in database
     })
     console.log(title, description, image)
     res.redirect('/home')
@@ -129,13 +129,15 @@ exports.blogForm = async(req, res) =>{ // create blog form ko garako
 
 
  exports.homeBlogs = async(req, res) =>{ // many blogs dakauna
-    const blogss = await blogs.findAll()
+    const blogss = await blogs.findAll({
+        include: users
+    })
     console.log(blogss)
  
     res.render('home',{blogss}) // file ko name dako
  }
 
- 
+
 
  exports.getBlogByID = async(req, res) =>{ // single blog dakaucha
  
@@ -143,8 +145,30 @@ exports.blogForm = async(req, res) =>{ // create blog form ko garako
    const blogId = await blogs.findAll({
        where:{
            id:req.params.id
-       }
+
+       }, include: users
+       
    });
-   res.render('blogs', {blogId});
+   res.render('singleBlog', {blogId});
    
 }
+
+exports.deleteBlog = async(req, res) => {
+    const deleteBlog = await blogs.destroy({
+        where:{
+            id:req.params.id
+        }
+    });
+    res.redirect('/home') // redirect la change gara pataucha
+} 
+
+
+// exports.editBlog = async(req, res) => {
+//     const blogEdit = await blogs.findAll({
+//        where:{
+//         id:req.params.id
+//        } 
+//     })
+//     res.render('')
+// }
+
