@@ -163,12 +163,21 @@ exports.deleteBlog = async(req, res) => {
 } 
 
 
-// exports.editBlog = async(req, res) => {
-//     const blogEdit = await blogs.findAll({
-//        where:{
-//         id:req.params.id
-//        } 
-//     })
-//     res.render('')
-// }
+exports.editBlog = async(req, res) => {
+    const blogEdit = await blogs.findAll({
+       where:{
+        id:req.params.id
+       } 
+    })
+    res.render('edit',{blogEdit})
+}
 
+
+exports.update = async(req, res) => {
+    const updateBlog = await blogs.update(req.body, {
+        where:{
+            id:req.params.id
+        }
+    })
+    res.redirect('/singleBlog/' + req.params.id)
+}

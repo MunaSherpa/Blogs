@@ -29,3 +29,6 @@ exports.isAuthenticated = async (req, res, next) => {
   next(); // yala add blog ma lancha 
   
 };
+
+
+
