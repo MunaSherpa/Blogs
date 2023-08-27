@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Blog Posting UI</title>
+  <title>My Blogs</title>
   <style>
     * {
       box-sizing: border-box;
@@ -107,9 +107,9 @@
     }
 
     .logout {
-      color: white;
+      color: rgb(77, 74, 74);
       text-decoration: none;
-      background-color: #ff5f5f;
+      background-color: white;
       border-radius: 5px;
       padding: 10px 20px;
       margin-left: 10px;
@@ -120,17 +120,18 @@
   <div class="nav">
     <a class="add" href="blog">Add More</a>
     <a class="logout" href="/logout">Logout</a>
+
   </div>
   
   <div class="container">
-    <% blogss.forEach((titl) => { %>
+    <% blogss.forEach((myBlogs) => { %>
       <div class="division">
-        <h3><%- titl.id %></h3>
-        <img src="<%- titl.image %>" alt="BlogApp">
-        <h3>Created By: <%- titl.user.name %></h3> 
-        <h3><%- titl.title %></h3>
-        <p><%- titl.description %></p>
-        <button class="seebtn"><a class="see" href="/SingleBlog/<%- titl.id %>">See More</a></button>
+        <h3><%- myBlogs.id %></h3>
+        <img src="<%- myBlogs.image %>" alt="BlogApp">
+        <h3>Created By: <%- myBlogs.user.name %></h3> 
+        <h3><%- myBlogs.title %></h3>
+        <p><%- myBlogs.description %></p>
+        <button class="seebtn"><a class="see" href="/SingleBlog/<%- myBlogs.id %>">See More</a></button>
       </div>
     <% }) %>
   </div>

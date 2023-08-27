@@ -61,11 +61,11 @@
   </header>
 
   <div class="blog-form">
-    <form action="/edit/<%- blogEdit[0].id %>" method="post" >
+    <form action="/edit/<%- blogEdit[0].id %>" method="post" enctype="multipart/form-data" >
       <!-- <input type="text" name="name" placeholder="Your Name" required> -->
       <input type="text" name="title" value="<%- blogEdit[0].title %>" placeholder="Blog Post Title" required>
       <textarea name="description"  placeholder="Blog Post Description" required><%- blogEdit[0].description %></textarea>
-      <input type="file"  value="<%- blogEdit[0].image %>" />
+      <input type="file" name="image" value="<%- blogEdit[0].image %>" />
       <button type="submit">Update</button>
     </form>
   </div>

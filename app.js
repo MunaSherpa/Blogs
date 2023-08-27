@@ -5,7 +5,7 @@ const ejs = require('ejs')
 const {sequelized, blog, blogs, users} = require ('./model/index')
 
 const bcrypt = require ('bcrypt');
-const { registerUser, loginUser, forgotPassword, otp, blogForm, homeBlogs, getBlogByID,  deleteBlog, editBlog, update} = require('./controller/authController');
+const { registerUser, loginUser, forgotPassword, otp, blogForm, homeBlogs, getBlogByID,  deleteBlog, editBlog, update, myBlog} = require('./controller/authController');
 
 
 const { multer, storage } = require("./services/multerConfig");
@@ -69,7 +69,9 @@ app.get('/delete/:id', deleteBlog)
 
 app.get('/edit/:id', editBlog)
 
-app.post('/edit/:id', update)
+app.post('/edit/:id', upload.single("image"), update)
+
+app.get('/myBlog',isAuthenticated, myBlog)
 
 
 

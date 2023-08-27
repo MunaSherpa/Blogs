@@ -174,10 +174,28 @@ exports.editBlog = async(req, res) => {
 
 
 exports.update = async(req, res) => {
-    const updateBlog = await blogs.update(req.body, {
+    console.log(req.file)
+    const updateBlog = await blogs.update({
+        title:req.body.title,
+        description:req.body.description,
+        image:"http://localhost:3000/"+req.file.filename,
+    }, {
         where:{
             id:req.params.id
         }
     })
     res.redirect('/singleBlog/' + req.params.id)
 }
+
+exports.myBlog = async(req, res) =>{ 
+    console.log(req.userId)
+    const blogss = await blogs.findAll({
+        where:{
+            userId: req.userId
+        },
+        include: users
+    })
+    console.log(blogss)
+ 
+    res.render('myBlog',{blogss}) // file ko name dako
+ }
