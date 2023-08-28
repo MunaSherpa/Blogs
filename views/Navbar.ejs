@@ -4,7 +4,6 @@
 <head>
 
     <style>
-        
         body {
             margin: 0;
             padding: 0;
@@ -25,27 +24,36 @@
 
         }
 
-     
+
         nav ul li {
 
             margin-left: 20px;
         }
 
-      
+
         nav ul li a {
             display: block;
             color: #fff;
             text-decoration: none;
             padding: 15px;
             /* background-color: lightblue; */
-            
+
 
 
         }
 
-        
+
         nav ul li a:hover {
             background-color: #555;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+            background-color: #191717;
+            border-radius: 5px;
+            padding: 10px 17px;
+            margin-left: 5px;
         }
     </style>
 
@@ -57,7 +65,9 @@
             <li><a href="/home">Home</a></li>
             <li><a href="/login">Login</a></li>
             <li><a href="/register">Register</a></li>
-            
+            <a class="logout" href="/logout">Logout</a>
+
+
 
 
         </ul>

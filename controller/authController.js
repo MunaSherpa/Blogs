@@ -175,10 +175,20 @@ exports.editBlog = async(req, res) => {
 
 exports.update = async(req, res) => {
     console.log(req.file)
+    let file;
+    const blog = await blogs.findAll({where:{
+        id : req.params.id
+    }})
+    if(req.file){
+file = "http://localhost:3000/" + req.file.filename // current image yeti aayo vaney
+
+    }else{
+        file = blog[0].image // aayena vaney past ma j xa tehi hunchha
+    }
     const updateBlog = await blogs.update({
         title:req.body.title,
         description:req.body.description,
-        image:"http://localhost:3000/"+req.file.filename,
+        image:file,
     }, {
         where:{
             id:req.params.id

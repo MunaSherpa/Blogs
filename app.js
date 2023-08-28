@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true})) 
 
 app.use(express.static("uploads")); // databasema null ako thauma link datakacha
-app.use(require('cookie-parser')()) ;
+app.use(require('cookie-parser')()) ; 
 
 app.set('view engine', 'ejs')
 
@@ -72,6 +72,11 @@ app.get('/edit/:id', editBlog)
 app.post('/edit/:id', upload.single("image"), update)
 
 app.get('/myBlog',isAuthenticated, myBlog)
+
+app.get('/logout', (req, res) => {
+    res.clearCookie()
+    res.redirect('/login')
+})
 
 
 
